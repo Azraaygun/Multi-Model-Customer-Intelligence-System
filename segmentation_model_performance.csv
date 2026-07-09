@@ -1,0 +1,2 @@
+ModelName,Algorithm,NumberOfClusters,SilhouetteScore,TrainDate
+Customer Segmentation,KMeans,4,0.2473,2026-07-09
