@@ -1,0 +1,4 @@
+Problem,Best_Model,Key_Metric,Score
+Churn Prediction,Logistic Regression,F1 Score,0.635
+Customer Segmentation,KMeans (k=4),Silhouette Score,0.2473
+Revenue Prediction,Random Forest Regressor,R²,0.781

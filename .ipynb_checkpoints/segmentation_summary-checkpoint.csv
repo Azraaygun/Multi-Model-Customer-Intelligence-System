@@ -1,0 +1,5 @@
+Cluster,SegmentLabel,ChurnRate_%,OneYear_Contract_%,TwoYear_Contract_%,Silhouette_Score
+0,Yaslı Düşük Harcamalı Müşteri,28.06,18.9,17.299999999999997,0.24727816876092917
+1,Yüksek Değerli Sadık Müşteri,15.3,30.3,44.3,0.24727816876092917
+2,Yeni Yüksek Riskli Müşteri,48.73,9.4,2.4,0.24727816876092917
+3,Genç Düşük Harcamalı Müşteri,17.02,22.8,27.700000000000003,0.24727816876092917
