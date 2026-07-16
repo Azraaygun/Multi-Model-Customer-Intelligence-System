@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Yeni Müşteri Ekle</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            background-color: #fff1de;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 60px;
+        }
+        h1 { color: #2c3e50; }
+        form {
+            background-color: #ffe8c9;
+            border: 3px solid #fbaed2;
+            border-radius: 10px;
+            padding: 30px 40px;
+            width: 350px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background-color: #fbaed2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Yeni Müşteri Ekle</h1>
+
+    <form method="POST">
+        <label>İsim</label>
+        <input type="text" name="name" required>
+
+        <label>Yaş</label>
+        <input type="number" name="age" required>
+
+        <label>Cinsiyet</label>
+        <select name="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <label>Sözleşme Türü</label>
+        <select name="contracttype">
+            <option value="Month-to-month">Month-to-month</option>
+            <option value="One year">One year</option>
+            <option value="Two year">Two year</option>
+        </select>
+
+        <label>Aylık Ücret</label>
+        <input type="number" step="0.01" name="monthlycharge" required>
+
+        <label>Üyelik Süresi (Ay)</label>
+        <input type="number" name="tenure" required>
+
+        <label>İnternet Servisi</label>
+        <select name="internetservice">
+            <option value="DSL">DSL</option>
+            <option value="Fiber optic">Fiber optic</option>
+            <option value="No">No</option>
+        </select>
+
+        <label>Ödeme Yöntemi</label>
+        <select name="paymentmethod">
+            <option value="Electronic check">Electronic check</option>
+            <option value="Mailed check">Mailed check</option>
+            <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+            <option value="Credit card (automatic)">Credit card (automatic)</option>
+        </select>
+
+        <label>Destek Talebi Sayısı</label>
+        <input type="number" name="supportticketcount" required>
+
+        <button type="submit">Ekle</button>
+    </form>
+</body>
+</html>

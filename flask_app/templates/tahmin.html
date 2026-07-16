@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+
+    <form method="GET" action="/tahmin">
+        <label>Müşteri ID Gir (bilgiler otomatik gelsin)</label>
+        <input type="text" name="customerid" value="{{ musteri_id }}" placeholder="örn. 7590-VHVEG">
+        <button type="submit">Bilgileri Getir</button>
+    </form>
+</div>
+    <meta charset="UTF-8">
+    <title>Churn Tahmini</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            background-color: #fff1de;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+        }
+        h1 { color: #2c3e50; }
+        form {
+            background-color: #ffe8c9;
+            border: 3px solid #fbaed2;
+            border-radius: 10px;
+            padding: 30px 40px;
+            width: 400px;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+            color: #34495e;
+            font-size: 14px;
+        }
+        input, select {
+            width: 100%;
+            padding: 7px;
+            margin-top: 4px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background-color: #fbaed2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+ <div style="margin-bottom: 20px; text-align: center;">
+        <a href="/dashboard">Dashboard</a> |
+        <a href="/musteriler">Müşteri Listesi</a> |
+        <a href="/musteri-ekle">Yeni Müşteri Ekle</a>
+ <a href="/tahmin">Müşteri Analizi</a>
+    </div>
+<body>
+    <h1>Churn Tahmini</h1>
+    <form method="POST">
+        <label>Müşteri ID</label>
+<input type="text" name="customerid" value="{{ musteri.customerid if musteri else musteri_id }}" required>
+
+<label>Yaş</label>
+<input type="number" name="age" value="{{ musteri.age if musteri else 35 }}" required>
+
+<label>Üyelik Süresi (Ay)</label>
+<input type="number" name="tenure" value="{{ musteri.tenure if musteri else 12 }}" required>
+
+<label>Aylık Ücret</label>
+<input type="number" step="0.01" name="monthlycharge" value="{{ musteri.monthlycharge if musteri else 65.00 }}" required>
+
+<label>Destek Talebi Sayısı</label>
+<input type="number" name="supportticketcount" value="{{ musteri.supportticketcount if musteri else 1 }}" required>
+        <label>Cinsiyet</label>
+        <select name="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <label>Senior Citizen</label>
+        <select name="seniorcitizen">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+        </select>
+
+        <label>Partner</label>
+        <select name="partner">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+        </select>
+
+        <label>Dependents</label>
+        <select name="dependents">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+        </select>
+
+        <label>Phone Service</label>
+        <select name="phoneservice">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label>Multiple Lines</label>
+        <select name="multiplelines">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No phone service">No phone service</option>
+        </select>
+
+        <label>Internet Service</label>
+        <select name="internetservice">
+            <option value="DSL">DSL</option>
+            <option value="Fiber optic">Fiber optic</option>
+            <option value="No">No</option>
+        </select>
+
+        <label>Online Security</label>
+        <select name="onlinesecurity">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No internet service">No internet service</option>
+        </select>
+
+        <label>Online Backup</label>
+        <select name="onlinebackup">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No internet service">No internet service</option>
+        </select>
+
+        <label>Device Protection</label>
+        <select name="deviceprotection">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No internet service">No internet service</option>
+        </select>
+
+        <label>Tech Support</label>
+        <select name="techsupport">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No internet service">No internet service</option>
+        </select>
+
+        <label>Streaming TV</label>
+        <select name="streamingtv">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No internet service">No internet service</option>
+        </select>
+
+        <label>Streaming Movies</label>
+        <select name="streamingmovies">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No internet service">No internet service</option>
+        </select>
+
+        <label>Contract</label>
+        <select name="contract">
+            <option value="Month-to-month">Month-to-month</option>
+            <option value="One year">One year</option>
+            <option value="Two year">Two year</option>
+        </select>
+
+        <label>Paperless Billing</label>
+        <select name="paperlessbilling">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
+        <label>Payment Method</label>
+        <select name="paymentmethod">
+            <option value="Electronic check">Electronic check</option>
+            <option value="Mailed check">Mailed check</option>
+            <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+            <option value="Credit card (automatic)">Credit card (automatic)</option>
+        </select>
+
+        <button type="submit">Tahmin Yap</button>
+    </form>
+</body>
+</html>

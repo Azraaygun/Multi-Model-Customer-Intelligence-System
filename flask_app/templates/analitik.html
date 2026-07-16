@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Analitik Sayfa</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            background-color: #fff1de;
+            padding: 40px;
+        }
+        h1 { color: #2c3e50; text-align: center; }
+        .grafik-kutu {
+            background-color: #ffe8c9;
+            border: 3px solid #fbaed2;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 700px;
+            text-align: center;
+        }
+        img { max-width: 100%; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Analitik Sayfa</h1>
+
+    <div class="grafik-kutu">
+        <h2>Segment Dağılımı (Canlı Veri)</h2>
+        <img src="data:image/png;base64,{{ segment_grafik }}">
+    </div>
+
+    <div class="grafik-kutu">
+        <h2>Feature Importance (Churn Modeli)</h2>
+        <img src="/static/churn_feature_importance.png">
+    </div>
+
+    <div class="grafik-kutu">
+        <h2>Müşteri Segmentleri</h2>
+        <img src="/static/segmentation_clusters_visualization.png">
+    </div>
+
+    <div class="grafik-kutu">
+        <h2>Gelir Tahmini: Gerçek vs Tahmin</h2>
+        <img src="/static/revenue_actual_vs_predicted.png">
+    </div>
+</body>
+</html>

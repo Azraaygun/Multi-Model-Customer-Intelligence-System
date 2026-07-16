@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Müşteriler</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 3px solid #ccc;
+            padding: 6px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #fbaed2;
+            color: white;
+        }
+
+        tr {
+            background-color: #dccbd5;
+        }
+
+        tr:hover {
+            background-color: #f5c9dc;
+        }
+    </style>
+</head>
+ <div style="margin-bottom: 20px; text-align: center;">
+        <a href="/dashboard">Dashboard</a> |
+        <a href="/musteriler">Müşteri Listesi</a> |
+        <a href="/musteri-ekle">Yeni Müşteri Ekle</a> |
+ <a href="/tahmin">Müşteri Analizi</a>
+    </div>
+
+
+    <div style="text-align: center;">
+        <h1>Müşteri Listesi</h1>
+    </div>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>İsim</th>
+            <th>Yaş</th>
+            <th>Cinsiyet</th>
+            <th>Sözleşme</th>
+            <th>Aylık Ücret</th>
+            <th>Üyelik Süresi (Ay)</th>
+            <th>İnternet Servisi</th>
+            <th>Ödeme Yöntemi</th>
+            <th>Destek Talebi</th>
+            <th>Sil</th>
+        </tr>
+
+        {% for musteri in musteriler %}
+        <tr>
+            <td>{{ musteri.customerid }}</td>
+            <td>{{ musteri.name }}</td>
+            <td>{{ musteri.age }}</td>
+            <td>{{ musteri.gender }}</td>
+            <td>{{ musteri.contracttype }}</td>
+            <td>{{ musteri.monthlycharge }}</td>
+            <td>{{ musteri.tenure }}</td>
+            <td>{{ musteri.internetservice }}</td>
+            <td>{{ musteri.paymentmethod }}</td>
+            <td>{{ musteri.supportticketcount }}</td>
+
+            <td>
+    <a href="/musteri-duzenle/{{ musteri.customerid }}">Düzenle</a>
+    <a href="/musteri-sil/{{ musteri.customerid }}">Sil</a>
+</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div style="text-align: center; font-family: Georgia, serif; font-size: 18px; padding: 20px;">
+        {% if sayfa > 1 %}
+            <a href="/musteriler?sayfa={{ sayfa - 1 }}">← Önceki</a>
+        {% endif %}
+
+        <span>Sayfa {{ sayfa }} / {{ toplam_sayfa }}</span>
+
+        {% if sayfa < toplam_sayfa %}
+            <a href="/musteriler?sayfa={{ sayfa + 1 }}">Sonraki →</a>
+        {% endif %}
+    </div>
+
+</body>
+</html>

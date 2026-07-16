@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 90%;
+            max-width: 1800px;
+            background-color: #eaf2f8;
+            border-radius: 0px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        }
+
+        thead tr {
+            background-color: #fbaed2;
+            color: white;
+        }
+
+        th, td {
+            padding: 22px 18px;
+            text-align: center;
+            font-size: 17px;
+        }
+
+        tbody tr {
+            background-color: #dccbd5;
+        }
+
+        tbody tr:hover {
+            background-color: #aed6f1;
+            transition: 0.3s;
+        }
+
+        /* köşeleri yuvarlatmak için ilk ve son hücreler */
+        table {
+            border: none;
+        }
+    </style>
+</head>
+ <div style="margin-bottom: 20px; text-align: center;">
+        <a href="/dashboard">Dashboard</a> |
+        <a href="/musteriler">Müşteri Listesi</a> |
+        <a href="/musteri-ekle">Yeni Müşteri Ekle</a> |
+ <a href="/tahmin">Müşteri Analizi</a>
+    </div>
+<body>
+    <h1>Dashboard</h1>
+
+
+
+ <table>
+    <thead>
+        <tr>
+            <th>Toplam müşteri sayısı</th>
+            <th>Churn oranı</th>
+            <th>Ortalama gelir</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ toplam_musteri }}</td>
+            <td>{{ churn_orani }}%</td>
+            <td>{{ ortalama_gelir }} ₺</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 style="margin-top: 30px; color: #2c3e50;">Segment Dağılımı</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Segment</th>
+            <th>Müşteri Sayısı</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in segment_dagilimi %}
+        <tr>
+            <td>{{ s.segmentlabel }}</td>
+            <td>{{ s.adet }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
