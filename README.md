@@ -168,7 +168,9 @@ Tüm tahmin geçmişi (LogId, CustomerId → customers, ModelId → models, Pred
 Tüm modellerin performans metrikleri karşılaştırmalı olarak değerlendirildi, her problem için en iyi model belirlendi.
 
 ### Aşama 5 — Model Kaydetme
+
 En iyi modeller `joblib` ile `.pkl` formatında kaydedildi; model bilgileri veritabanına yazıldı.
+
 ---
 
 ## Makine Öğrenmesi Modelleri
