@@ -240,7 +240,7 @@ Her tahmin işleminin sonunda, sistem müşteriye özel bir **paket/kampanya ön
 
 Koşullar sırayla değerlendirilir; bir müşteri birden fazla koşulu karşılasa bile **ilk uyan kural** geçerli olur (örneğin hem yüksek riskli hem yüksek değerli bir müşteriye önce risk azaltıcı kampanya önerilir). Üretilen öneri, hem tahmin sonucu ekranında gösterilir hem de `PredictionLogs` tablosuna kaydedilerek Tahmin Geçmişi sayfasından geriye dönük izlenebilir.
 
-Bu yaklaşım, veri setinde "önerilen ürün" gibi bir hedef değişken bulunmadığından, mevcut model çıktılarını kullanan pratik ve hızlı uygulanabilir bir çözüm olarak tercih edilmiştir. Gelecekte gerçek bir öneri modeliyle değiştirilebilir (bkz. [Geliştirme Önerileri](#geliştirme-önerileri)).
+Bu yaklaşım, veri setinde "önerilen ürün" gibi bir hedef değişken bulunmadığından, mevcut model çıktılarını kullanan pratik ve hızlı uygulanabilir bir çözüm olarak tercih edilmiştir. 
 
 ---
 ## Kurulum
