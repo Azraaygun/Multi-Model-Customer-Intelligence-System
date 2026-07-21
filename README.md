@@ -306,5 +306,5 @@ Multi-Model Customer Intelligence System/
 - **Veritabanı şema kısıtlamaları:** `Models` tablosunun sabit şeması (Accuracy/Precision/Recall) yalnızca classification modelleri için anlamlıdır; regression ve clustering modellerinde bu alanlar boş bırakılmış, ana metrik `F1Score` alanına (R² veya Silhouette Score olarak) kaydedilmiştir.
 - **Aktif model — modele özgü metrik uyumsuzluğu:** Yalnızca churn modelleri (Logistic Regression, Random Forest, XGBoost) arasında aktif model seçimi anlamlıdır; bu nedenle arayüzde "Aktif Yap" seçeneği yalnızca bu üç modelde gösterilmektedir.
 
----
+
 
