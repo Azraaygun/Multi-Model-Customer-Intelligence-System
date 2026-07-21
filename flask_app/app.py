@@ -4,11 +4,12 @@ from sqlalchemy import create_engine, text
 import random
 import string
 import joblib
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import io
 import base64
-import matplotlib
-matplotlib.use('Agg')
+
 app = Flask(__name__)
 engine = create_engine('postgresql://localhost/customer_intelligence')
 
@@ -18,6 +19,25 @@ churn_scaler = joblib.load('models/churn_scaler.pkl')
 revenue_model = joblib.load('models/revenue_model_rf.pkl')
 kmeans_model = joblib.load('models/kmeans_segmentation_model.pkl')
 segmentation_scaler = joblib.load('models/segmentation_scaler.pkl')
+
+MODEL_DOSYALARI = {
+    'Logistic Regression': 'models/churn_model_logistic_regression.pkl',
+    'Random Forest': 'models/churn_model_random_forest.pkl',
+    'XGBoost': 'models/churn_model_xgboost.pkl'
+}
+
+
+def aktif_model_bilgisi():
+    df = pd.read_sql(
+        "SELECT modelid, modelname FROM models WHERE aktif = TRUE AND modelname IN ('Logistic Regression', 'Random Forest', 'XGBoost') LIMIT 1",
+        engine
+    )
+    if df.empty:
+        return None, 'Logistic Regression', churn_model
+    model_id = int(df['modelid'].iloc[0])
+    model_adi = df['modelname'].iloc[0]
+    return model_id, model_adi, joblib.load(MODEL_DOSYALARI[model_adi])
+
 
 SEGMENT_ISIMLERI = {
     0: 'Yaşlı, Orta Riskli Müşteri',
@@ -88,12 +108,21 @@ def musteri_ozelliklerini_hazirla(form):
         'PaymentMethod_Mailed check': 1 if form['paymentmethod'] == 'Mailed check' else 0,
     }
     return ozellikler
-
+def urun_onerisi_uret(segment_adi, risk, tahmini_gelir):
+    if risk == 'High':
+        return "Sadakat Paketi + %20 İndirim Kampanyası"
+    elif segment_adi == 'Yüksek Değerli, Sadık Müşteri':
+        return "Premium Fiber + Ekstra Veri Paketi"
+    elif segment_adi == 'Genç, Düşük Harcamalı, Düşük Riskli Müşteri':
+        return "Öğrenci/Genç Kampanyası"
+    elif tahmini_gelir > 3000:
+        return "Kurumsal Paket Önerisi"
+    else:
+        return "Standart Paket"
 
 @app.route("/")
 def home():
-    return "Ana sayfa"
-
+    return render_template('home.html')
 
 @app.route('/musteriler')
 def musteriler():
@@ -130,10 +159,10 @@ def dashboard():
     segment_dagilimi = segment_data.to_dict(orient='records')
 
     return render_template('dashboard.html',
-                            toplam_musteri=toplam_musteri,
-                            churn_orani=churn_orani,
-                            ortalama_gelir=ortalama_gelir,
-                            segment_dagilimi=segment_dagilimi)
+                           toplam_musteri=toplam_musteri,
+                           churn_orani=churn_orani,
+                           ortalama_gelir=ortalama_gelir,
+                           segment_dagilimi=segment_dagilimi)
 
 
 @app.route('/musteri-ekle', methods=['GET', 'POST'])
@@ -220,7 +249,7 @@ def musteri_duzenle(musteri_id):
         return redirect('/musteriler')
 
     df = pd.read_sql(text('SELECT * FROM customers WHERE customerid = :id'),
-                      engine, params={'id': musteri_id})
+                     engine, params={'id': musteri_id})
     musteri = df.iloc[0].to_dict()
 
     return render_template('musteri_duzenle.html', musteri=musteri)
@@ -234,7 +263,8 @@ def tahmin():
 
         # ---- CHURN TAHMİNİ ----
         X_olceklenmis = churn_scaler.transform(X)
-        churn_olasiligi = churn_model.predict_proba(X_olceklenmis)[:, 1][0]
+        model_id, model_adi, secili_model = aktif_model_bilgisi()
+        churn_olasiligi = secili_model.predict_proba(X_olceklenmis)[:, 1][0]
 
         if churn_olasiligi >= 0.7:
             risk = 'High'
@@ -254,6 +284,16 @@ def tahmin():
         X_segment_olcekli = segmentation_scaler.transform(X_segment)
         kume_no = kmeans_model.predict(X_segment_olcekli)[0]
         segment_adi = SEGMENT_ISIMLERI.get(kume_no, 'Bilinmeyen Segment')
+        # ---- SEGMENT TAHMİNİ ----
+        segment_kolonlari = ['tenure', 'MonthlyCharges', 'TotalCharges', 'Age', 'SupportTicketCount']
+        X_segment = X[segment_kolonlari]
+        X_segment_olcekli = segmentation_scaler.transform(X_segment)
+        kume_no = kmeans_model.predict(X_segment_olcekli)[0]
+        segment_adi = SEGMENT_ISIMLERI.get(kume_no, 'Bilinmeyen Segment')
+
+        # ---- ÜRÜN ÖNERİSİ ----
+        oneri = urun_onerisi_uret(segment_adi, risk, tahmini_gelir)
+
 
         musteri_id = request.form['customerid']
 
@@ -271,12 +311,24 @@ def tahmin():
             })
             conn.commit()
 
-        return render_template('tahmin_sonuc.html',
-                              olasilik=round(churn_olasiligi * 100, 2),
-                              risk=risk,
-                              gelir=round(tahmini_gelir, 2),
-                              segment=segment_adi)
+        log_sorgusu = text('''
+            INSERT INTO predictionlogs (customerid, modelid, predictiondate, result)
+            VALUES (:id, :modelid, CURRENT_DATE, :sonuc)
+        ''')
+        with engine.connect() as conn:
+            conn.execute(log_sorgusu, {
+                'id': musteri_id,
+                'modelid': model_id,
+                'sonuc': f"Churn: %{round(churn_olasiligi * 100, 1)}, Risk: {risk}, Segment: {segment_adi}, Kampanya: {oneri}"
+            })
+            conn.commit()
 
+        return render_template('tahmin_sonuc.html',
+                               olasilik=round(churn_olasiligi * 100, 2),
+                               risk=risk,
+                               gelir=round(tahmini_gelir, 2),
+                               segment=segment_adi,
+                               oneri=oneri)
     musteri_id = request.args.get('customerid', '')
     musteri = None
 
@@ -287,6 +339,8 @@ def tahmin():
             musteri = df.iloc[0].to_dict()
 
     return render_template('tahmin.html', musteri=musteri, musteri_id=musteri_id)
+
+
 @app.route('/analitik')
 def analitik():
     segment_data = pd.read_sql('''
@@ -308,6 +362,55 @@ def analitik():
     plt.close(fig)
 
     return render_template('analitik.html', segment_grafik=grafik_kodu)
+
+
+@app.route('/gecmis')
+def gecmis():
+    tarih_filtre = request.args.get('tarih', '')
+    risk_filtre = request.args.get('risk', '')
+
+    sorgu = '''
+        SELECT pl.logid, pl.customerid, c.name, pl.predictiondate, pl.result, m.modelname,
+               SPLIT_PART(pl.result, 'Kampanya: ', 2) AS oneri
+        FROM predictionlogs pl
+        LEFT JOIN customers c ON pl.customerid = c.customerid
+        LEFT JOIN models m ON pl.modelid = m.modelid
+        WHERE 1=1
+    '''
+    parametreler = {}
+
+    if tarih_filtre:
+        sorgu += ' AND pl.predictiondate = :tarih'
+        parametreler['tarih'] = tarih_filtre
+
+    if risk_filtre:
+        sorgu += ' AND pl.result ILIKE :risk'
+        parametreler['risk'] = f'%Risk: {risk_filtre}%'
+
+    sorgu += ' ORDER BY pl.logid DESC'
+
+    df = pd.read_sql(text(sorgu), engine, params=parametreler)
+
+    return render_template('gecmis.html',
+                           loglar=df.to_dict(orient='records'),
+                           tarih_filtre=tarih_filtre,
+                           risk_filtre=risk_filtre)
+
+
+@app.route('/modeller')
+def modeller():
+    df = pd.read_sql('SELECT * FROM models ORDER BY modelid', engine)
+    return render_template('modeller.html', modeller=df.to_dict(orient='records'))
+
+
+@app.route('/model-aktif-yap/<int:model_id>')
+def model_aktif_yap(model_id):
+    with engine.connect() as conn:
+        conn.execute(text('UPDATE models SET aktif = FALSE'))
+        conn.execute(text('UPDATE models SET aktif = TRUE WHERE modelid = :id'), {'id': model_id})
+        conn.commit()
+    return redirect('/modeller')
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

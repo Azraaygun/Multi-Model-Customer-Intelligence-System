@@ -2,47 +2,76 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Analitik Sayfa</title>
+    <title>Analitik | Customer Intelligence System</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: Georgia, serif;
-            background-color: #fff1de;
-            padding: 40px;
+            font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+            background-color: #F7F8FA;
+            color: #1A1F2E;
+            padding: 30px 40px;
+            display: flex;
+    flex-direction: column;
+    align-items: center;
         }
-        h1 { color: #2c3e50; text-align: center; }
-        .grafik-kutu {
-            background-color: #ffe8c9;
-            border: 3px solid #fbaed2;
+        .nav {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #E5E7EB;
+
+        }
+        .nav a { color: #6B7280; text-decoration: none; font-size: 14px; font-weight: 500; }
+        .nav a:hover { color: #4F46E5; }
+
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+
+        .charts { display: flex; flex-wrap: wrap; gap: 20px; }
+        .chart-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
             border-radius: 10px;
             padding: 20px;
-            margin: 20px auto;
-            max-width: 700px;
-            text-align: center;
         }
-        img { max-width: 100%; border-radius: 8px; }
+        .chart-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 14px; color: #374151; }
+        .chart-card img { max-width: 100%; border-radius: 6px; }
     </style>
 </head>
 <body>
+    <div class="nav">
+        <a href="/">Ana Sayfa</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/musteriler">Müşteri Listesi</a>
+        <a href="/tahmin">Müşteri Analizi</a>
+        <a href="/analitik">Metrikler</a>
+        <a href="/modeller">Model Seçimi</a>
+        <a href="/gecmis">Analiz Geçmişi</a>
+    </div>
+
     <h1>Analitik Sayfa</h1>
 
-    <div class="grafik-kutu">
-        <h2>Segment Dağılımı (Canlı Veri)</h2>
-        <img src="data:image/png;base64,{{ segment_grafik }}">
-    </div>
 
-    <div class="grafik-kutu">
-        <h2>Feature Importance (Churn Modeli)</h2>
-        <img src="/static/churn_feature_importance.png">
-    </div>
 
-    <div class="grafik-kutu">
-        <h2>Müşteri Segmentleri</h2>
-        <img src="/static/segmentation_clusters_visualization.png">
-    </div>
+        <div class="chart-card">
+            <h3>Feature Importance (Churn Modeli)</h3>
+            <img src="/static/churn_feature_importance.png">
+        </div>
 
-    <div class="grafik-kutu">
-        <h2>Gelir Tahmini: Gerçek vs Tahmin</h2>
-        <img src="/static/revenue_actual_vs_predicted.png">
+        <div class="chart-card">
+            <h3>Müşteri Segmentleri Görselleştirmesi</h3>
+            <img src="/static/segmentation_clusters_visualization.png">
+        </div>
+
+        <div class="chart-card">
+            <h3>Gelir Tahmini: Gerçek vs Tahmin</h3>
+            <img src="/static/revenue_actual_vs_predicted.png">
+        </div>
+     <div class="charts">
+        <div class="chart-card">
+            <h3>Segment Dağılımı (Canlı Veri)</h3>
+            <img src="data:image/png;base64,{{ segment_grafik }}">
+        </div>
     </div>
 </body>
 </html>

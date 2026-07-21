@@ -1,106 +1,217 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-
-    <form method="GET" action="/tahmin">
-        <label>Müşteri ID Gir (bilgiler otomatik gelsin)</label>
-        <input type="text" name="customerid" value="{{ musteri_id }}" placeholder="örn. 7590-VHVEG">
-        <button type="submit">Bilgileri Getir</button>
-    </form>
-</div>
     <meta charset="UTF-8">
-    <title>Churn Tahmini</title>
+    <title>Tahmin | Customer Intelligence System</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: Georgia, serif;
-            background-color: #fff1de;
+            font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+            background-color: #F7F8FA;
+            color: #1A1F2E;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 40px;
-        }
-        h1 { color: #2c3e50; }
-        form {
-            background-color: #ffe8c9;
-            border: 3px solid #fbaed2;
-            border-radius: 10px;
             padding: 30px 40px;
-            width: 400px;
         }
+        .nav {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #E5E7EB;
+            width: 98%;
+            max-width: 900px;
+        }
+        .nav a {
+            color: #6B7280;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .nav a:hover { color: #4F46E5; }
+
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+
+ .getir-kutu {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 28px;
+    max-width: 900px;
+    width: 98%;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+}
+.getir-kutu form {
+    display: flex;
+    gap: 14px;
+    align-items: flex-end;
+}
+.getir-kutu label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6B7280;
+    margin-bottom: 8px;
+    text-align: center;
+}
+.getir-kutu input {
+    padding: 12px 16px;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    font-size: 15px;
+    width: 340px;
+}
+.getir-kutu input:focus {
+    outline: none;
+    border-color: #4F46E5;
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+}
+.getir-kutu button {
+    padding: 12px 24px;
+    background: #4F46E5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.getir-kutu button:hover { background: #4338CA; }
+        form.tahmin-form {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 900px;
+            width: 98%;
+        }
+        .row { display: flex; gap: 16px; }
+        .row > div { flex: 1; }
         label {
             display: block;
-            margin-top: 12px;
-            font-weight: bold;
-            color: #34495e;
-            font-size: 14px;
+            margin-top: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
         }
         input, select {
             width: 100%;
-            padding: 7px;
-            margin-top: 4px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 9px 12px;
+            margin-top: 5px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            font-size: 14px;
             box-sizing: border-box;
+            background: #FFFFFF;
         }
-        button {
-            margin-top: 20px;
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+        }
+        button.submit-btn {
+            margin-top: 24px;
             width: 100%;
-            padding: 10px;
-            background-color: #fbaed2;
+            padding: 12px;
+            background: #4F46E5;
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
         }
+        button.submit-btn:hover { background: #4338CA; }
     </style>
 </head>
- <div style="margin-bottom: 20px; text-align: center;">
-        <a href="/dashboard">Dashboard</a> |
-        <a href="/musteriler">Müşteri Listesi</a> |
-        <a href="/musteri-ekle">Yeni Müşteri Ekle</a>
- <a href="/tahmin">Müşteri Analizi</a>
-    </div>
 <body>
+
+    <div class="nav">
+        <a href="/">Ana Sayfa</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/musteriler">Müşteri Listesi</a>
+        <a href="/musteri-ekle">Yeni Müşteri Ekle</a>
+        <a href="/tahmin">Müşteri Analizi</a>
+        <a href="/analitik">Metrikler</a>
+        <a href="/modeller">Model Seçimi</a>
+        <a href="/gecmis">Analiz Geçmişi</a>
+    </div>
+
     <h1>Churn Tahmini</h1>
-    <form method="POST">
-        <label>Müşteri ID</label>
-<input type="text" name="customerid" value="{{ musteri.customerid if musteri else musteri_id }}" required>
 
-<label>Yaş</label>
-<input type="number" name="age" value="{{ musteri.age if musteri else 35 }}" required>
+    <div class="getir-kutu">
+        <form method="GET" action="/tahmin">
+            <div>
+                <label>Müşteri ID Gir (bilgiler otomatik gelsin)</label>
+                <input type="text" name="customerid" value="{{ musteri_id }}" placeholder="örn. 7590-VHVEG">
+            </div>
+            <button type="submit">Bilgileri Getir</button>
+        </form>
+    </div>
 
-<label>Üyelik Süresi (Ay)</label>
-<input type="number" name="tenure" value="{{ musteri.tenure if musteri else 12 }}" required>
+    <form method="POST" class="tahmin-form">
+        <div class="row">
+            <div style="flex: 2;">
+                <label>Müşteri ID</label>
+                <input type="text" name="customerid" value="{{ musteri.customerid if musteri else musteri_id }}" required>
+            </div>
+            <div>
+                <label>Yaş</label>
+                <input type="number" name="age" value="{{ musteri.age if musteri else 35 }}" required>
+            </div>
+            <div>
+                <label>Üyelik Süresi (Ay)</label>
+                <input type="number" name="tenure" value="{{ musteri.tenure if musteri else 12 }}" required>
+            </div>
+        </div>
 
-<label>Aylık Ücret</label>
-<input type="number" step="0.01" name="monthlycharge" value="{{ musteri.monthlycharge if musteri else 65.00 }}" required>
+        <div class="row">
+            <div>
+                <label>Aylık Ücret</label>
+                <input type="number" step="0.01" name="monthlycharge" value="{{ musteri.monthlycharge if musteri else 65.00 }}" required>
+            </div>
+            <div>
+                <label>Destek Talebi Sayısı</label>
+                <input type="number" name="supportticketcount" value="{{ musteri.supportticketcount if musteri else 1 }}" required>
+            </div>
+        </div>
 
-<label>Destek Talebi Sayısı</label>
-<input type="number" name="supportticketcount" value="{{ musteri.supportticketcount if musteri else 1 }}" required>
-        <label>Cinsiyet</label>
-        <select name="gender">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-        </select>
+        <div class="row">
+            <div>
+                <label>Cinsiyet</label>
+                <select name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div>
+                <label>Senior Citizen</label>
+                <select name="seniorcitizen">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+        </div>
 
-        <label>Senior Citizen</label>
-        <select name="seniorcitizen">
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>
-        </select>
-
-        <label>Partner</label>
-        <select name="partner">
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>
-        </select>
-
-        <label>Dependents</label>
-        <select name="dependents">
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>
-        </select>
+        <div class="row">
+            <div>
+                <label>Partner</label>
+                <select name="partner">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+            <div>
+                <label>Dependents</label>
+                <select name="dependents">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+        </div>
 
         <label>Phone Service</label>
         <select name="phoneservice">
@@ -185,7 +296,8 @@
             <option value="Credit card (automatic)">Credit card (automatic)</option>
         </select>
 
-        <button type="submit">Tahmin Yap</button>
+        <button type="submit" class="submit-btn">Tahmin Yap</button>
     </form>
+
 </body>
 </html>

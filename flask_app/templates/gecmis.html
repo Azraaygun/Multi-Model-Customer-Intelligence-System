@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tahmin Geçmişi | Customer Intelligence System</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+            background-color: #F7F8FA;
+            color: #1A1F2E;
+            padding: 30px 40px;
+            display: flex;
+    flex-direction: column;
+    align-items: center;
+        }
+        .nav {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        .nav a { color: #6B7280; text-decoration: none; font-size: 14px; font-weight: 500; }
+        .nav a:hover { color: #4F46E5; }
+
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 20px; }
+
+        .filtre-kutu {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 700px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+        }
+        .filtre-kutu label { display: block; font-size: 13px; font-weight: 600; color: #6B7280; margin-bottom: 6px; }
+        .filtre-kutu input, .filtre-kutu select {
+            padding: 8px 12px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .filtre-kutu button {
+            padding: 8px 18px;
+            background: #4F46E5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .filtre-kutu button:hover { background: #4338CA; }
+
+        table {
+            width: 98%;
+            max-width: 1500px;
+            border-collapse: collapse;
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #6B7280;
+            background: #F9FAFB;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 12px 14px;
+        }
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #F3F4F6;
+            font-size: 14px;
+        }
+        tr:hover td { background: #F9FAFB; }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <a href="/">Ana Sayfa</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/musteriler">Müşteri Listesi</a>
+        <a href="/tahmin">Müşteri Analizi</a>
+        <a href="/analitik">Metrikler</a>
+        <a href="/modeller">Model Seçimi</a>
+        <a href="/gecmis">Analiz Geçmişi</a>
+
+    </div>
+
+    <h1>Tahmin Geçmişi</h1>
+
+    <form method="GET" action="/gecmis" class="filtre-kutu">
+        <div>
+            <label>Tarih</label>
+            <input type="date" name="tarih" value="{{ tarih_filtre }}">
+        </div>
+        <div>
+            <label>Risk Seviyesi</label>
+            <select name="risk">
+                <option value="" {{ 'selected' if not risk_filtre else '' }}>Tümü</option>
+                <option value="Low" {{ 'selected' if risk_filtre == 'Low' else '' }}>Low</option>
+                <option value="Medium" {{ 'selected' if risk_filtre == 'Medium' else '' }}>Medium</option>
+                <option value="High" {{ 'selected' if risk_filtre == 'High' else '' }}>High</option>
+            </select>
+        </div>
+        <button type="submit">Filtrele</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>Log ID</th>
+            <th>Müşteri ID</th>
+            <th>İsim</th>
+            <th>Tarih</th>
+            <th>Kullanılan Model</th>
+            <th>Sonuç</th>
+            <th>Kampanya Önerisi</th>
+        </tr>
+        {% for log in loglar %}
+        <tr>
+            <td>{{ log.logid }}</td>
+            <td>{{ log.customerid }}</td>
+            <td>{{ log.name }}</td>
+            <td>{{ log.predictiondate }}</td>
+            <td>{{ log.modelname }}</td>
+            <td>{{ log.result }}</td>
+            <td>{{ log.oneri }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

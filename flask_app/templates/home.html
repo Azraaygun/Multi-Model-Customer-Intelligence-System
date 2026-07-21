@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Intelligence System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, 'Segoe UI', Arial, sans-serif;
+            background: #F7F7F5;
+            color: #1A1F2E;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 40px;
+        }
+        .baslik-alani {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .etiket {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: #FFFFFF;
+            border: 1px solid #E5E4E0;
+            color: #57534E;
+            font-size: 12.5px;
+            font-weight: 500;
+            padding: 7px 15px;
+            border-radius: 20px;
+            margin-bottom: 22px;
+            letter-spacing: 0.02em;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+        .etiket-nokta {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4F46E5;
+        }
+        h1 {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 14px;
+            color: #14171F;
+        }
+        .alt-yazi {
+            color: #78716C;
+            font-size: 16px;
+            font-weight: 400;
+        }
+        .kart-alani {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            max-width: 980px;
+            width: 100%;
+        }
+        .kart {
+            background: #FFFFFF;
+            border: 1px solid #EBEAE6;
+            border-radius: 16px;
+            padding: 30px 28px;
+            text-decoration: none;
+            color: inherit;
+            transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 1px 2px rgba(20, 20, 15, 0.04), 0 1px 1px rgba(20, 20, 15, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+        .kart::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: #4F46E5;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .kart:hover {
+            border-color: #D9D8D3;
+            box-shadow: 0 12px 24px rgba(20, 20, 15, 0.08), 0 4px 8px rgba(20, 20, 15, 0.04);
+            transform: translateY(-4px);
+        }
+        .kart:hover::after {
+            transform: scaleX(1);
+        }
+        .numara {
+            font-size: 12px;
+            font-weight: 600;
+            color: #A8A29E;
+            letter-spacing: 0.06em;
+            margin-bottom: 18px;
+            font-variant-numeric: tabular-nums;
+        }
+        .kart h3 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 9px;
+            letter-spacing: -0.01em;
+            color: #14171F;
+        }
+        .kart p {
+            font-size: 13.5px;
+            color: #78716C;
+            line-height: 1.6;
+        }
+        .kart-alt {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #F1F0EC;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #4F46E5;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .kart-alt-ok {
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .kart:hover .kart-alt-ok {
+            transform: translateX(3px);
+        }
+        @media (max-width: 900px) {
+            .kart-alani { grid-template-columns: 1fr; max-width: 480px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="baslik-alani">
+
+        <h1>Hoş Geldiniz</h1>
+
+    </div>
+
+    <div class="kart-alani">
+        <a href="/dashboard" class="kart">
+            <div class="numara">01</div>
+            <h3>Dashboard</h3>
+            <p>Toplam müşteri, churn oranı ve segment dağılımının genel görünümü</p>
+            <div class="kart-alt">Görüntüle <span class="kart-alt-ok">→</span></div>
+        </a>
+
+        <a href="/musteriler" class="kart">
+            <div class="numara">02</div>
+            <h3>Müşteri Yönetimi</h3>
+            <p>Müşterileri listele, ekle, düzenle veya sil</p>
+            <div class="kart-alt">Görüntüle <span class="kart-alt-ok">→</span></div>
+        </a>
+
+        <a href="/tahmin" class="kart">
+            <div class="numara">03</div>
+            <h3>Tahmin Yap</h3>
+            <p>Müşteri verisi girerek churn, gelir ve segment tahmini üret</p>
+            <div class="kart-alt">Görüntüle <span class="kart-alt-ok">→</span></div>
+        </a>
+
+        <a href="/analitik" class="kart">
+            <div class="numara">04</div>
+            <h3>Analitik</h3>
+            <p>Segment dağılımı, feature importance ve model performans grafikleri</p>
+            <div class="kart-alt">Görüntüle <span class="kart-alt-ok">→</span></div>
+        </a>
+
+        <a href="/gecmis" class="kart">
+            <div class="numara">05</div>
+            <h3>Tahmin Geçmişi</h3>
+            <p>Geçmiş tahminleri görüntüle, tarih ve risk seviyesine göre filtrele</p>
+            <div class="kart-alt">Görüntüle <span class="kart-alt-ok">→</span></div>
+        </a>
+
+        <a href="/modeller" class="kart">
+            <div class="numara">06</div>
+            <h3>Model Yönetimi</h3>
+            <p>Model metriklerini incele, aktif churn modelini seç</p>
+            <div class="kart-alt">Görüntüle <span class="kart-alt-ok">→</span></div>
+        </a>
+    </div>
+
+</body>
+</html>

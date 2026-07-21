@@ -2,40 +2,103 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Tahmin Sonucu</title>
+    <title>Tahmin Sonucu | Customer Intelligence System</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: Georgia, serif;
-            background-color: #fff1de;
+            font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+            background-color: #F7F8FA;
+            color: #1A1F2E;
+            padding: 30px 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 80px;
         }
-        h1 { color: #2c3e50; }
-        .kutu {
-            background-color: #ffe8c9;
-            border: 3px solid #fbaed2;
+        .nav {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #E5E7EB;
+            width: 100%;
+            max-width: 690px;
+
+        }
+        .nav a { color: #6B7280; text-decoration: none; font-size: 14px; font-weight: 500; }
+        .nav a:hover { color: #4F46E5; }
+
+        h1 { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+
+        .result-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
             border-radius: 10px;
-            padding: 30px 50px;
-            font-size: 20px;
-            text-align: center;
+            padding: 28px;
+            width: 100%;
+            max-width: 440px;
         }
+        .metric { margin-bottom: 18px; }
+        .metric-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #6B7280;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .metric-value { font-size: 22px; font-weight: 700; color: #1A1F2E; }
+
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #4F46E5;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .back-btn:hover { background: #4338CA; }
     </style>
 </head>
- <div style="margin-bottom: 20px; text-align: center;">
-        <a href="/dashboard">Dashboard</a> |
-        <a href="/musteriler">Müşteri Listesi</a> |
-        <a href="/musteri-ekle">Yeni Müşteri Ekle</a> |
- <a href="/tahmin">Müşteri Analizi</a>
-    </div>
 <body>
-    <h1>Tahmin Sonucu</h1>
-    <div class="kutu">
-        <p>Churn Olasılığı: <strong>%{{ olasilik }}</strong></p>
-        <p>Risk Seviyesi: <strong>{{ risk }}</strong></p>
-        <p>Tahmini Gelir: <strong>{{ gelir }} ₺</strong></p>
-<p>Segment: <strong>{{ segment }}</strong></p>
+    <div class="nav">
+        <a href="/">Ana Sayfa</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/musteriler">Müşteri Listesi</a>
+        <a href="/tahmin">Müşteri Analizi</a>
+        <a href="/analitik">Metrikler</a>
+        <a href="/modeller">Model Seçimi</a>
+        <a href="/gecmis">Analiz Geçmişi</a>
     </div>
+
+    <h1>Tahmin Tamamlandı</h1>
+
+    <div class="result-card">
+        <div class="metric">
+            <div class="metric-label">Churn Olasılığı</div>
+            <div class="metric-value">%{{ olasilik }}</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Risk Seviyesi</div>
+            <div class="metric-value risk-{{ risk }}">{{ risk }}</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Tahmini Toplam Gelir</div>
+            <div class="metric-value">{{ gelir }} ₺</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Müşteri Segmenti</div>
+            <div class="metric-value">{{ segment }}</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Önerilen Kampanya</div>
+            <div class="metric-value">{{ oneri }}</div>
+        </div>
+    </div>
+
+    <a href="/tahmin" class="back-btn">← Yeni Tahmin Yap</a>
 </body>
 </html>

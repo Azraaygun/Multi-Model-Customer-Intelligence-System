@@ -3,98 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <title>Yeni Müşteri Ekle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: Georgia, serif;
-            background-color: #fff1de;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 60px;
+            font-family: 'Inter', -apple-system, 'Segoe UI', Arial, sans-serif;
+            background: #F7F7F5;
+            color: #1A1F2E;
+            min-height: 100vh;
+            padding: 50px 40px 80px;
         }
-        h1 { color: #2c3e50; }
+        .sayfa-ic {
+            max-width: 940px;
+            margin: 0 auto;
+
+        }
+        nav {
+            display: flex;
+           nav {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 48px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #EBEAE6;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+nav a {
+    flex-shrink: 0;
+}
+            gap: 6px;
+            margin-bottom: 48px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #EBEAE6;
+        }
+        nav a {
+            font-size: 13.5px;
+            font-weight: 500;
+            color: #78716C;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: 0.2s ease;
+        }
+        nav a:hover {
+            background: #FFFFFF;
+            color: #14171F;
+            box-shadow: 0 1px 2px rgba(20,20,15,0.04);
+        }
+        .baslik-alani {
+            margin-bottom: 32px;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #14171F;
+            margin-bottom: 6px;
+        }
+        .alt-yazi {
+            color: #78716C;
+            font-size: 14.5px;
+        }
         form {
-            background-color: #ffe8c9;
-            border: 3px solid #fbaed2;
-            border-radius: 10px;
-            padding: 30px 40px;
-            width: 350px;
+            background: #FFFFFF;
+            border: 1px solid #EBEAE6;
+            border-radius: 16px;
+            padding: 32px 34px;
+            box-shadow: 0 1px 2px rgba(20,20,15,0.04);
+        }
+        .alan-grubu {
+            margin-bottom: 20px;
+        }
+        .alan-grubu:last-of-type {
+            margin-bottom: 0;
         }
         label {
             display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #34495e;
+            font-size: 13px;
+            font-weight: 600;
+            color: #44403C;
+            margin-bottom: 7px;
         }
         input, select {
             width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
+            padding: 10px 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #1A1F2E;
+            border: 1px solid #E5E4E0;
+            border-radius: 9px;
+            background: #FAFAF9;
+            transition: 0.15s ease;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4F46E5;
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        .satir-ikili {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
         }
         button {
-            margin-top: 20px;
+            margin-top: 28px;
             width: 100%;
-            padding: 10px;
-            background-color: #fbaed2;
-            color: white;
+            padding: 12px;
+            background: #14171F;
+            color: #FFFFFF;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 9px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14.5px;
+            font-weight: 600;
             cursor: pointer;
+            transition: 0.15s ease;
+        }
+        button:hover {
+            background: #2D3138;
+        }
+        button:active {
+            transform: scale(0.99);
         }
     </style>
 </head>
 <body>
-    <h1>Yeni Müşteri Ekle</h1>
 
-    <form method="POST">
-        <label>İsim</label>
-        <input type="text" name="name" required>
+    <div class="sayfa-ic">
 
-        <label>Yaş</label>
-        <input type="number" name="age" required>
+        <nav>
 
-        <label>Cinsiyet</label>
-        <select name="gender">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-        </select>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/musteriler">Müşteri Listesi</a>
+            <a href="/musteri-ekle">Yeni Müşteri Ekle</a>
+            <a href="/tahmin">Müşteri Analizi</a>
+            <a href="/analitik">Metrikler</a>
+            <a href="/modeller">Model Seçimi</a>
+            <a href="/gecmis">Analiz Geçmişi</a>
 
-        <label>Sözleşme Türü</label>
-        <select name="contracttype">
-            <option value="Month-to-month">Month-to-month</option>
-            <option value="One year">One year</option>
-            <option value="Two year">Two year</option>
-        </select>
+        </nav>
 
-        <label>Aylık Ücret</label>
-        <input type="number" step="0.01" name="monthlycharge" required>
+        <div class="baslik-alani">
+            <h1>Yeni müşteri ekle</h1>
 
-        <label>Üyelik Süresi (Ay)</label>
-        <input type="number" name="tenure" required>
+        </div>
 
-        <label>İnternet Servisi</label>
-        <select name="internetservice">
-            <option value="DSL">DSL</option>
-            <option value="Fiber optic">Fiber optic</option>
-            <option value="No">No</option>
-        </select>
+        <form method="POST">
+            <div class="alan-grubu">
+                <label>İsim</label>
+                <input type="text" name="name" required>
+            </div>
 
-        <label>Ödeme Yöntemi</label>
-        <select name="paymentmethod">
-            <option value="Electronic check">Electronic check</option>
-            <option value="Mailed check">Mailed check</option>
-            <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
-            <option value="Credit card (automatic)">Credit card (automatic)</option>
-        </select>
+            <div class="satir-ikili">
+                <div class="alan-grubu">
+                    <label>Yaş</label>
+                    <input type="number" name="age" required>
+                </div>
+                <div class="alan-grubu">
+                    <label>Cinsiyet</label>
+                    <select name="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+            </div>
 
-        <label>Destek Talebi Sayısı</label>
-        <input type="number" name="supportticketcount" required>
+            <div class="alan-grubu">
+                <label>Sözleşme türü</label>
+                <select name="contracttype">
+                    <option value="Month-to-month">Month-to-month</option>
+                    <option value="One year">One year</option>
+                    <option value="Two year">Two year</option>
+                </select>
+            </div>
 
-        <button type="submit">Ekle</button>
-    </form>
+            <div class="satir-ikili">
+                <div class="alan-grubu">
+                    <label>Aylık ücret</label>
+                    <input type="number" step="0.01" name="monthlycharge" required>
+                </div>
+                <div class="alan-grubu">
+                    <label>Üyelik süresi (ay)</label>
+                    <input type="number" name="tenure" required>
+                </div>
+            </div>
+
+            <div class="alan-grubu">
+                <label>İnternet servisi</label>
+                <select name="internetservice">
+                    <option value="DSL">DSL</option>
+                    <option value="Fiber optic">Fiber optic</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="alan-grubu">
+                <label>Ödeme yöntemi</label>
+                <select name="paymentmethod">
+                    <option value="Electronic check">Electronic check</option>
+                    <option value="Mailed check">Mailed check</option>
+                    <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                    <option value="Credit card (automatic)">Credit card (automatic)</option>
+                </select>
+            </div>
+
+            <div class="alan-grubu">
+                <label>Destek talebi sayısı</label>
+                <input type="number" name="supportticketcount" required>
+            </div>
+
+            <button type="submit">Ekle</button>
+        </form>
+
+    </div>
+
 </body>
 </html>

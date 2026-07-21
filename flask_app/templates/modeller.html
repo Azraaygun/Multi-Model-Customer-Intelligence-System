@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Model Yönetimi | Customer Intelligence System</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
+            background-color: #F7F8FA;
+            color: #1A1F2E;
+            padding: 30px 40px;
+            display: flex;
+    flex-direction: column;
+    align-items: center;
+        }
+        .nav {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        .nav a { color: #6B7280; text-decoration: none; font-size: 14px; font-weight: 500; }
+        .nav a:hover { color: #4F46E5; }
+
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 20px; }
+
+        table {
+            width: 98%;
+            max-width: 1500px;
+            border-collapse: collapse;
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #6B7280;
+            background: #F9FAFB;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 12px 14px;
+        }
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #F3F4F6;
+            font-size: 14px;
+        }
+        tr:hover td { background: #F9FAFB; }
+        .aktif-satir td { background: #ECFDF5; }
+
+        .aktif-buton {
+            padding: 6px 14px;
+            background: #EEF2FF;
+            color: #4F46E5;
+            border: 1px solid #C7D2FE;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .aktif-buton:hover { background: #E0E7FF; }
+        .aktif-etiket {
+            color: #059669;
+            font-weight: 600;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="/">Ana Sayfa</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/musteriler">Müşteri Listesi</a>
+        <a href="/tahmin">Müşteri Analizi</a>
+        <a href="/analitik">Metrikler</a>
+        <a href="/modeller">Model Seçimi</a>
+        <a href="/gecmis">Analiz Geçmişi</a>
+    </div>
+
+    <h1>Model Yönetimi</h1>
+
+    <table>
+        <tr>
+            <th>Model Adı</th>
+            <th>Algoritma</th>
+            <th>Accuracy</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1 Score</th>
+            <th>Eğitim Tarihi</th>
+            <th>Durum</th>
+        </tr>
+        {% for model in modeller %}
+        <tr class="{{ 'aktif-satir' if model.aktif else '' }}">
+            <td>{{ model.modelname }}</td>
+            <td>{{ model.algorithm }}</td>
+            <td>{{ '%.3f'|format(model.accuracy) if model.accuracy == model.accuracy else '—' }}</td>
+            <td>{{ '%.3f'|format(model.precision_) if model.precision_ == model.precision_ else '—' }}</td>
+            <td>{{ '%.3f'|format(model.recall) if model.recall == model.recall else '—' }}</td>
+            <td>{{ '%.4f'|format(model.f1score) if model.f1score == model.f1score else '—' }}</td>
+            <td>{{ model.traindate }}</td>
+            <td>
+                {% if model.modelname in ['Logistic Regression', 'Random Forest', 'XGBoost'] %}
+                    {% if model.aktif %}
+                        <span class="aktif-etiket">✓ Aktif</span>
+                    {% else %}
+                        <a href="/model-aktif-yap/{{ model.modelid }}" class="aktif-buton">Aktif Yap</a>
+                    {% endif %}
+                {% else %}
+                    <span style="color:#9CA3AF;">—</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

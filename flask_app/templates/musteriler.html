@@ -3,91 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <title>Müşteriler</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, 'Segoe UI', Arial, sans-serif;
+            background: #F7F7F5;
+            color: #1A1F2E;
+            min-height: 100vh;
+            padding: 50px 40px 80px;
+        }
+        .sayfa-ic {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        nav {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 48px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #EBEAE6;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        nav a {
+            flex-shrink: 0;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: #78716C;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: 0.2s ease;
+        }
+        nav a:hover {
+            background: #FFFFFF;
+            color: #14171F;
+            box-shadow: 0 1px 2px rgba(20,20,15,0.04);
+        }
+        .baslik-alani {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #14171F;
+            margin-bottom: 6px;
+        }
+        .alt-yazi {
+            color: #78716C;
+            font-size: 14.5px;
+        }
+        .tablo-kart {
+            background: #FFFFFF;
+            border: 1px solid #EBEAE6;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(20,20,15,0.04);
+        }
+        .tablo-scroll {
+            overflow-x: auto;
+        }
         table {
-            border-collapse: collapse;
             width: 100%;
+            border-collapse: collapse;
+            min-width: 1100px;
         }
-
-        th, td {
-            border: 3px solid #ccc;
-            padding: 6px;
-            text-align: left;
+        thead tr {
+            background: #FAFAF9;
+            border-bottom: 1px solid #EBEAE6;
         }
-
         th {
-            background-color: #fbaed2;
-            color: white;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #78716C;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 14px 18px;
+            white-space: nowrap;
         }
-
-        tr {
-            background-color: #dccbd5;
+        td {
+            padding: 14px 18px;
+            font-size: 14px;
+            color: #1A1F2E;
+            border-bottom: 1px solid #F1F0EC;
+            white-space: nowrap;
         }
-
-        tr:hover {
-            background-color: #f5c9dc;
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        tbody tr:hover {
+            background: #FAFAF9;
+        }
+        .islem-alani {
+            display: flex;
+            gap: 8px;
+        }
+        .islem-btn {
+            font-size: 12.5px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 7px;
+            transition: 0.15s ease;
+        }
+        .duzenle-btn {
+            color: #4F46E5;
+            background: #EEF2FF;
+        }
+        .duzenle-btn:hover {
+            background: #E0E4FF;
+        }
+        .sil-btn {
+            color: #DC2626;
+            background: #FEF2F2;
+        }
+        .sil-btn:hover {
+            background: #FEE2E2;
+        }
+        .sayfalama {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 28px;
+            font-size: 13.5px;
+            color: #78716C;
+        }
+        .sayfalama a {
+            font-weight: 600;
+            color: #14171F;
+            text-decoration: none;
+            padding: 7px 14px;
+            border: 1px solid #E5E4E0;
+            border-radius: 8px;
+            background: #FFFFFF;
+            transition: 0.15s ease;
+        }
+        .sayfalama a:hover {
+            border-color: #D9D8D3;
+            box-shadow: 0 1px 2px rgba(20,20,15,0.04);
         }
     </style>
 </head>
- <div style="margin-bottom: 20px; text-align: center;">
-        <a href="/dashboard">Dashboard</a> |
-        <a href="/musteriler">Müşteri Listesi</a> |
-        <a href="/musteri-ekle">Yeni Müşteri Ekle</a> |
- <a href="/tahmin">Müşteri Analizi</a>
-    </div>
+<body>
 
+    <div class="sayfa-ic">
 
-    <div style="text-align: center;">
-        <h1>Müşteri Listesi</h1>
-    </div>
+        <nav>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/musteriler">Müşteri Listesi</a>
+            <a href="/musteri-ekle">Yeni Müşteri Ekle</a>
+            <a href="/tahmin">Müşteri Analizi</a>
+            <a href="/analitik">Metrikler</a>
+            <a href="/modeller">Model Seçimi</a>
+            <a href="/gecmis">Analiz Geçmişi</a>
+        </nav>
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>İsim</th>
-            <th>Yaş</th>
-            <th>Cinsiyet</th>
-            <th>Sözleşme</th>
-            <th>Aylık Ücret</th>
-            <th>Üyelik Süresi (Ay)</th>
-            <th>İnternet Servisi</th>
-            <th>Ödeme Yöntemi</th>
-            <th>Destek Talebi</th>
-            <th>Sil</th>
-        </tr>
+        <div class="baslik-alani">
+            <h1>Müşteri listesi</h1>
 
-        {% for musteri in musteriler %}
-        <tr>
-            <td>{{ musteri.customerid }}</td>
-            <td>{{ musteri.name }}</td>
-            <td>{{ musteri.age }}</td>
-            <td>{{ musteri.gender }}</td>
-            <td>{{ musteri.contracttype }}</td>
-            <td>{{ musteri.monthlycharge }}</td>
-            <td>{{ musteri.tenure }}</td>
-            <td>{{ musteri.internetservice }}</td>
-            <td>{{ musteri.paymentmethod }}</td>
-            <td>{{ musteri.supportticketcount }}</td>
+        </div>
 
-            <td>
-    <a href="/musteri-duzenle/{{ musteri.customerid }}">Düzenle</a>
-    <a href="/musteri-sil/{{ musteri.customerid }}">Sil</a>
-</td>
+        <div class="tablo-kart">
+            <div class="tablo-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>İsim</th>
+                            <th>Yaş</th>
+                            <th>Cinsiyet</th>
+                            <th>Sözleşme</th>
+                            <th>Aylık ücret</th>
+                            <th>Üyelik süresi</th>
+                            <th>İnternet servisi</th>
+                            <th>Ödeme yöntemi</th>
+                            <th>Destek talebi</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for musteri in musteriler %}
+                        <tr>
+                            <td>{{ musteri.customerid }}</td>
+                            <td>{{ musteri.name }}</td>
+                            <td>{{ musteri.age }}</td>
+                            <td>{{ musteri.gender }}</td>
+                            <td>{{ musteri.contracttype }}</td>
+                            <td>{{ musteri.monthlycharge }}</td>
+                            <td>{{ musteri.tenure }}</td>
+                            <td>{{ musteri.internetservice }}</td>
+                            <td>{{ musteri.paymentmethod }}</td>
+                            <td>{{ musteri.supportticketcount }}</td>
+                            <td>
+                                <div class="islem-alani">
+                                    <a href="/musteri-duzenle/{{ musteri.customerid }}" class="islem-btn duzenle-btn">Düzenle</a>
+                                    <a href="/musteri-sil/{{ musteri.customerid }}" class="islem-btn sil-btn">Sil</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-        </tr>
-        {% endfor %}
-    </table>
+        <div class="sayfalama">
+            {% if sayfa > 1 %}
+                <a href="/musteriler?sayfa={{ sayfa - 1 }}">← Önceki</a>
+            {% endif %}
 
-    <div style="text-align: center; font-family: Georgia, serif; font-size: 18px; padding: 20px;">
-        {% if sayfa > 1 %}
-            <a href="/musteriler?sayfa={{ sayfa - 1 }}">← Önceki</a>
-        {% endif %}
+            <span>Sayfa {{ sayfa }} / {{ toplam_sayfa }}</span>
 
-        <span>Sayfa {{ sayfa }} / {{ toplam_sayfa }}</span>
+            {% if sayfa < toplam_sayfa %}
+                <a href="/musteriler?sayfa={{ sayfa + 1 }}">Sonraki →</a>
+            {% endif %}
+        </div>
 
-        {% if sayfa < toplam_sayfa %}
-            <a href="/musteriler?sayfa={{ sayfa + 1 }}">Sonraki →</a>
-        {% endif %}
     </div>
 
 </body>

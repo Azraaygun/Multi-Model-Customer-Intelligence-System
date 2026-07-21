@@ -1,113 +1,188 @@
 <!DOCTYPE html>
 <html lang="tr">
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f4f6f8;
+            font-family: 'Inter', -apple-system, 'Segoe UI', Arial, sans-serif;
+            background: #F7F7F5;
+            color: #1A1F2E;
+            min-height: 100vh;
+            padding: 50px 40px 80px;
+
+        }
+        .sayfa-ic {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+        nav {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 80px;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 48px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #EBEAE6;
         }
-
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 15px;
+        nav a {
+            font-size: 13.5px;
+            font-weight: 500;
+            color: #78716C;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: 0.2s ease;
         }
-
-        p {
-            font-size: 18px;
-            color: #34495e;
-            margin-bottom: 20px;
+        nav a:hover {
+            background: #FFFFFF;
+            color: #14171F;
+            box-shadow: 0 1px 2px rgba(20,20,15,0.04);
         }
-
-        table {
-            border-collapse: separate;
-            border-spacing: 0;
-            width: 90%;
-            max-width: 1800px;
-            background-color: #eaf2f8;
-            border-radius: 0px;
-            overflow: hidden;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-        }
-
-        thead tr {
-            background-color: #fbaed2;
-            color: white;
-        }
-
-        th, td {
-            padding: 22px 18px;
+        .baslik-alani {
+            margin-bottom: 36px;
             text-align: center;
-            font-size: 17px;
         }
-
-        tbody tr {
-            background-color: #dccbd5;
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #14171F;
+            margin-bottom: 6px;
         }
-
-        tbody tr:hover {
-            background-color: #aed6f1;
-            transition: 0.3s;
+        .alt-yazi {
+            color: #78716C;
+            font-size: 14.5px;
         }
-
-        /* köşeleri yuvarlatmak için ilk ve son hücreler */
+        .metrik-alani {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .metrik-kart {
+            background: #FFFFFF;
+            border: 1px solid #EBEAE6;
+            border-radius: 14px;
+            padding: 24px 26px;
+            box-shadow: 0 1px 2px rgba(20,20,15,0.04);
+        }
+        .metrik-etiket {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #A8A29E;
+            letter-spacing: 0.03em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .metrik-deger {
+            font-size: 30px;
+            font-weight: 700;
+            color: #14171F;
+            letter-spacing: -0.02em;
+        }
+        h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #14171F;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+        .tablo-kart {
+            background: #FFFFFF;
+            border: 1px solid #EBEAE6;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(20,20,15,0.04);
+        }
         table {
-            border: none;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead tr {
+            background: #FAFAF9;
+            border-bottom: 1px solid #EBEAE6;
+        }
+        th {
+            text-align: left;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #78716C;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            padding: 14px 24px;
+        }
+        td {
+            padding: 16px 24px;
+            font-size: 14.5px;
+            color: #1A1F2E;
+            border-bottom: 1px solid #F1F0EC;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        tbody tr:hover {
+            background: #FAFAF9;
         }
     </style>
 </head>
- <div style="margin-bottom: 20px; text-align: center;">
-        <a href="/dashboard">Dashboard</a> |
-        <a href="/musteriler">Müşteri Listesi</a> |
-        <a href="/musteri-ekle">Yeni Müşteri Ekle</a> |
- <a href="/tahmin">Müşteri Analizi</a>
-    </div>
 <body>
-    <h1>Dashboard</h1>
 
+    <div class="sayfa-ic">
 
+        <nav>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/musteriler">Müşteri Listesi</a>
+            <a href="/musteri-ekle">Yeni Müşteri Ekle</a>
+            <a href="/tahmin">Müşteri Analizi</a>
+            <a href="/analitik">Metrikler</a>
+            <a href="/modeller">Model Seçimi</a>
+            <a href="/gecmis">Analiz Geçmişi</a>
+        </nav>
 
- <table>
-    <thead>
-        <tr>
-            <th>Toplam müşteri sayısı</th>
-            <th>Churn oranı</th>
-            <th>Ortalama gelir</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ toplam_musteri }}</td>
-            <td>{{ churn_orani }}%</td>
-            <td>{{ ortalama_gelir }} ₺</td>
-        </tr>
-    </tbody>
-</table>
+        <div class="baslik-alani">
+            <h1>Dashboard</h1>
 
-<h2 style="margin-top: 30px; color: #2c3e50;">Segment Dağılımı</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Segment</th>
-            <th>Müşteri Sayısı</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for s in segment_dagilimi %}
-        <tr>
-            <td>{{ s.segmentlabel }}</td>
-            <td>{{ s.adet }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </div>
+
+        <div class="metrik-alani">
+            <div class="metrik-kart">
+                <div class="metrik-etiket">Toplam müşteri</div>
+                <div class="metrik-deger">{{ toplam_musteri }}</div>
+            </div>
+            <div class="metrik-kart">
+                <div class="metrik-etiket">Churn oranı</div>
+                <div class="metrik-deger">%{{ churn_orani }}</div>
+            </div>
+            <div class="metrik-kart">
+                <div class="metrik-etiket">Ortalama gelir</div>
+                <div class="metrik-deger">{{ ortalama_gelir }} ₺</div>
+            </div>
+        </div>
+
+        <h2>Segment dağılımı</h2>
+        <div class="tablo-kart">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Segment</th>
+                        <th>Müşteri sayısı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in segment_dagilimi %}
+                    <tr>
+                        <td>{{ s.segmentlabel }}</td>
+                        <td>{{ s.adet }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
 </body>
 </html>
